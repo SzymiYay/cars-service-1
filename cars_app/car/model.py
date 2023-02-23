@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 from decimal import Decimal
 from enum import Enum, IntEnum
+from typing import Any
 
 
 class Color(IntEnum):
@@ -25,3 +26,10 @@ class Car:
             COLOR: {self.color.name}
             COMPONENTS: {", ".join(self.components)}
         """
+
+    @classmethod
+    def from_dict(cls, data: dict[str, Any]):
+        car = Car(**data)
+        car.price = Decimal(data['price'])
+        car.color = Color[data['color']]
+        return car

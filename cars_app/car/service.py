@@ -1,3 +1,5 @@
+from .model import Car, Color
+
 from dataclasses import dataclass
 
 
