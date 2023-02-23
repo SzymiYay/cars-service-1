@@ -7,8 +7,9 @@ import unittest
 
 class TestCar(unittest.TestCase):
 
-    def setUpClass(self) -> None:
-        self.car = c.Car('BMW', Decimal('150000'), 160_000, c.Color.WHITE, ['cos'])
+    @classmethod
+    def setUpClass(cls) -> None:
+        cls.car = c.Car('BMW', Decimal('150000'), 160_000, c.Color.WHITE, ['cos'])
 
     def test_mileage_greater_than_value(self):
         result = self.car.has_mileage_greater_than(150_000)

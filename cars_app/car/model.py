@@ -18,6 +18,12 @@ class Car:
     color: Color
     components: list[str]
 
+    def has_mileage_greater_than(self, value: int) -> bool:
+        return self.mileage > value
+
+    def has_price_between(self, price_from: Decimal, price_to: Decimal) -> bool:
+        return price_from <= self.price <= price_to
+
     def __str__(self):
         return f"""
             MODEL: {self.model}
