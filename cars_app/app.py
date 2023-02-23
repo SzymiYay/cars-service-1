@@ -21,3 +21,11 @@ def main() -> None:
     print(cars_data)
 
     cars = get_cars(cars_data)
+
+    cars_service = CarsService(cars)
+    logger.info('Successfully created CarsService')
+
+    logger.debug('String representation of cars')
+    print(cars_service)
+
+
