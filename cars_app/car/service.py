@@ -7,6 +7,7 @@ from operator import attrgetter
 from collections import defaultdict
 from copy import deepcopy
 
+
 @dataclass
 class CarsService:
     cars: list[Car]
