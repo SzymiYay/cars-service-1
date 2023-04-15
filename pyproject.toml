@@ -8,6 +8,7 @@ packages = [{include = "cars_app"}]
 
 [tool.poetry.dependencies]
 python = "^3.11"
+mysql-connector-python = "^8.0.32"
 
 
 [build-system]
