@@ -26,62 +26,72 @@ def main() -> None:
     car_repo.create_table("id integer primary key auto_increment, model varchar(20) not null, price integer default 0, color varchar(50) not null, mileage integer not null")
     component_repo.create_table("id integer primary key auto_increment, name varchar(50) not null, car_id integer not null, foreign key (car_id) references cars(id) on delete cascade on update cascade")
 
-    car_repo.insert_many()
+    car_repo.insert_many([
+        Car(model='BMW', price=120, mileage=1500, color="BLACK"),
+        Car(model='MAZDA', price=160, mileage=2500, color="WHITE"),
+        Car(model='FORD', price=2000, mileage=4500, color="BLUE"),
+        Car(model='AUDI', price=250, mileage=12300, color="YELLOW"),
+    ])
+
+    component_repo.insert_many([
+        Component(name="ABS", car_id=1),
+        Component(name="ALLOY WHEELS", car_id=1),
+        Component(name="AIR CONDITION", car_id=2),
+        Component(name="BLUETOOTH", car_id=2),
+        Component(name="BLUETOOTH", car_id=3),
+        Component(name="ABS", car_id=3),
+        Component(name="ABS", car_id=4),
+    ])
 
 
 
+    """LOGGING"""
+    logger = MyLogger.get_logger()
 
+    """APP"""
+    logger.warning('STARTING APP')
+    FILENAME: Final[str] = 'cars_app/data/cars.json'
 
+    cars_data = get_cars_data(FILENAME)
+    logger.info('Successfully loaded cars data from file')
+    print(cars_data)
 
-    # """LOGGING"""
-    # logger = MyLogger.get_logger()
-    #
-    # """APP"""
-    # logger.warning('STARTING APP')
-    # FILENAME: Final[str] = 'cars_app/data/cars.json'
-    #
-    # cars_data = get_cars_data(FILENAME)
-    # logger.info('Successfully loaded cars data from file')
-    # print(cars_data)
-    #
-    # cars = get_cars(cars_data)
-    #
-    # cars_service = CarsService(cars)
-    # logger.info('Successfully created CarsService')
-    #
-    # logger.debug('String representation of cars')
-    # print(cars_service)
-    #
-    # logger.debug('Cars sorted by specified field')
-    # print(cars_service.sort_by(SortCriteria.MODEL, reverse=False))
-    # print(cars_service.sort_by(SortCriteria.COLOR, reverse=True))
-    # print(cars_service.sort_by(SortCriteria.PRICE, reverse=False))
-    # print(cars_service.sort_by(SortCriteria.MILEAGE, reverse=False))
-    #
-    # logger.debug('Cars with mileage greater than 1500')
-    # print(cars_service.get_cars_with_mileage_greater_than(1500))
-    #
-    # logger.debug('Dict with color and number of cars')
-    # print(cars_service.get_color_and_no_of_cars())
-    #
-    # logger.debug('Dict with model and most expensive car')
-    # print(cars_service.get_model_and_most_expensive_car())
-    #
-    # logger.debug('Statistics about cars')
-    # print(cars_service.get_statistics())
-    #
-    # logger.debug('The most expensive cars')
-    # print(cars_service.get_most_expensive_cars())
-    #
-    # logger.debug('Cars with sorted components')
-    # print(cars_service.get_cars_with_sorted_components())
-    #
-    # logger.debug('Component and cars with it')
-    # print(cars_service.get_dict_component_and_cars())
-    #
-    # logger.debug('Cars with price between 121 and 200')
-    # print(cars_service.get_cars_with_price_between(Decimal('121'), Decimal('200')))
-    #
-    # logger.warning('ENDING APP')
+    cars = get_cars(cars_data)
 
+    cars_service = CarsService(cars)
+    logger.info('Successfully created CarsService')
 
+    logger.debug('String representation of cars')
+    print(cars_service)
+
+    logger.debug('Cars sorted by specified field')
+    print(cars_service.sort_by(SortCriteria.MODEL, reverse=False))
+    print(cars_service.sort_by(SortCriteria.COLOR, reverse=True))
+    print(cars_service.sort_by(SortCriteria.PRICE, reverse=False))
+    print(cars_service.sort_by(SortCriteria.MILEAGE, reverse=False))
+
+    logger.debug('Cars with mileage greater than 1500')
+    print(cars_service.get_cars_with_mileage_greater_than(1500))
+
+    logger.debug('Dict with color and number of cars')
+    print(cars_service.get_color_and_no_of_cars())
+
+    logger.debug('Dict with model and most expensive car')
+    print(cars_service.get_model_and_most_expensive_car())
+
+    logger.debug('Statistics about cars')
+    print(cars_service.get_statistics())
+
+    logger.debug('The most expensive cars')
+    print(cars_service.get_most_expensive_cars())
+
+    logger.debug('Cars with sorted components')
+    print(cars_service.get_cars_with_sorted_components())
+
+    logger.debug('Component and cars with it')
+    print(cars_service.get_dict_component_and_cars())
+
+    logger.debug('Cars with price between 121 and 200')
+    print(cars_service.get_cars_with_price_between(Decimal('121'), Decimal('200')))
+
+    logger.warning('ENDING APP')
