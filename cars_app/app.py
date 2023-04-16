@@ -10,6 +10,7 @@ from decimal import Decimal
 import logging
 
 def main() -> None:
+
     """LOGGING"""
     logger = MyLogger.get_logger()
 
